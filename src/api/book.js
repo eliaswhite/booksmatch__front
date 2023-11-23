@@ -2,7 +2,7 @@ import axios from "axios";
 
 class BookService {
     async getBooks() {
-        const { data } = await axios.get('/livros');
+        const { data } = await axios.get('/livros/');
         return data;
     }
     async getCategories() {
@@ -15,6 +15,10 @@ class BookService {
     }
     async deleteCategorie(id) {
         const { data } = await axios.delete(`/categorias/${id}/`)
+        return data;
+    }
+    async getAuthors() {
+        const { data } = await axios.get('/autores/');
         return data;
     }
 }

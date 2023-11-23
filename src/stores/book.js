@@ -6,6 +6,7 @@ export const useBookStore = defineStore('book', {
         return {
             books: [],
             categories: [],
+            authors: []
         }
     },
     actions: {
@@ -41,6 +42,10 @@ export const useBookStore = defineStore('book', {
                     status: 'error'
                 };
             }
+        },
+        async getAuthors() {
+            const data = await bookService.getAuthors()
+            this.authors = data;
         }
     }
 })

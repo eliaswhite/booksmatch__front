@@ -8,6 +8,7 @@ const bookStore = useBookStore();
 onMounted(async ()=> {
   await bookStore.getBooks();
   await bookStore.getCategories();
+  await bookStore.getAuthors();
 })
 </script>
 

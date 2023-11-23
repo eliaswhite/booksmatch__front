@@ -16,6 +16,7 @@ async function addCategorie() {
         descricao: input.value
     }
     await bookStore.addCategorie(categorie);
+    input.value = null;
 }
 
 async function deleteCategorie(id) {
