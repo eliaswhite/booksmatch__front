@@ -5,6 +5,10 @@ class BookService {
         const { data } = await axios.get('/livros/');
         return data;
     }
+    async addBook(book) {
+        const { data } = await axios.post('/livros/', book);
+        return data;
+    }
     async getCategories() {
         const { data } = await axios.get('/categorias/');
         return data;

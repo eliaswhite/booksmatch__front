@@ -15,6 +15,11 @@ export const useBookStore = defineStore('book', {
             this.books = data;
             console.log(this.books)
         },
+        async addBook(book) {
+            const data = await bookService.addBook(book);
+            await this.getBooks();
+            console.log(this.books)
+        },
         async getCategories() {
             const data = await bookService.getCategories();
             this.categories = data;

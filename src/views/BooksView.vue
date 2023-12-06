@@ -8,6 +8,9 @@ const bookStore = useBookStore();
 const authors = computed(()=> bookStore.authors);
 const categories = computed(()=> bookStore.categories)
 
+const title = ref(null)
+const price = ref(null)
+
 const showAuthors = ref(false)
 const showCategories = ref(false)
 
@@ -22,6 +25,17 @@ function uploadImage(event) {
       if (file) {
         imageUrl.value = URL.createObjectURL(file);
     }
+}
+
+function addBook() {
+    const book = {
+        titulo: title.value,
+        preco: price.value,
+        autor: activeAuthor.value.id,
+        categoria: activeCategorie.value.id,
+        imagem: imageUrl.value
+    }
+    bookStore.addBook(book);
 }
 </script>
 
@@ -43,7 +57,7 @@ function uploadImage(event) {
                 </label>
             </div>
 
-            <input type="text" placeholder="Titulo" class="title">
+            <input type="text" placeholder="Titulo" class="title" v-model="title">
 
             <div class="authors">
                 
@@ -84,9 +98,9 @@ function uploadImage(event) {
                 </span>
             </div>
 
-            <input type="number" placeholder="Preço" class="price">
+            <input type="number" placeholder="Preço" class="price" v-model="price">
 
-            <button>Salvar</button>
+            <button @click="addBook">Salvar</button>
         </section>
     </main>
 </template>
