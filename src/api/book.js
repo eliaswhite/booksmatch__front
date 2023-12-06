@@ -1,5 +1,4 @@
-import axios from "axios";
-
+import api from "../plugins/axios";
 class BookService {
     async getBooks() {
         const { data } = await axios.get('/livros/');
