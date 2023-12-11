@@ -57,6 +57,7 @@ const books = computed(() => bookStore.books)
 
   .news .books {
     display: flex;
+    flex-wrap: wrap;
     width: 90%;
     gap: 30px;
     overflow-x: auto;
@@ -68,6 +69,7 @@ const books = computed(() => bookStore.books)
     flex-direction: column;
     gap: 10px;
     overflow: hidden;
+    min-width: 200px;
   }
   
   .book img{

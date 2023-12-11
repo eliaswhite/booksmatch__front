@@ -24,6 +24,7 @@ export const useBookStore = defineStore("book", {
         const data = await bookService.addBook(book);
         await this.getBooks();
         console.log(this.books);
+        window.location.reload()
       } catch (e) {
         console.log(e);
       }
