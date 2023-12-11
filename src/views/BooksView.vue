@@ -7,23 +7,28 @@ const bookStore = useBookStore();
 
 const authors = computed(()=> bookStore.authors);
 const categories = computed(()=> bookStore.categories)
+const publishers = computed(()=> bookStore.publishers)
 
 const title = ref(null)
 const price = ref(null)
 
 const showAuthors = ref(false)
 const showCategories = ref(false)
+const showPublishers = ref(false)
 
 const activeAuthor = ref(null);
 const activeCategorie = ref(null)
+const activePublisher = ref(null)
 
 const imageUrl = ref(null)
+const image = ref(null)
 
 function uploadImage(event) {
     console.log(event)
     const file = event.target.files[0];
-      if (file) {
+    if (file) {
         imageUrl.value = URL.createObjectURL(file);
+        image.value = file
     }
 }
 
@@ -31,11 +36,15 @@ function addBook() {
     const book = {
         titulo: title.value,
         preco: price.value,
-        autor: activeAuthor.value.id,
+        autores: [activeAuthor.value.id],
         categoria: activeCategorie.value.id,
-        imagem: imageUrl.value
+        editora: activePublisher.value.id,
+        capa: null
     }
-    bookStore.addBook(book);
+    const formData = new FormData();
+    formData.append('file', image.value);
+    formData.append('description', title.value);
+    bookStore.addBook(book, formData);
 }
 </script>
 
@@ -98,6 +107,26 @@ function addBook() {
                 </span>
             </div>
 
+            <div class="publishers">
+                
+                <div class="drop" @click="showPublishers = !showPublishers">
+                    <p v-if="activePublisher != null">
+                    {{ activePublisher.nome }}
+                    </p>
+                    <p v-else>
+                        Editora
+                    </p>
+
+                    <img src="/drop.png" alt="Dropdown">
+                </div>
+
+                <span v-if="showPublishers">
+                    <p v-for="publisher in publishers" :key="publisher.id" @click="activePublisher = publisher, showPublishers = false">
+                        {{ publisher.nome }}
+                    </p>
+                </span>
+            </div>
+
             <input type="number" placeholder="Preço" class="price" v-model="price">
 
             <button @click="addBook">Salvar</button>
@@ -142,7 +171,7 @@ function addBook() {
         color: black;
     }
 
-    .authors, .categories {
+    .authors, .categories, .publishers {
         width: 100%;
         height: 30px;
         position: relative;
@@ -155,19 +184,19 @@ function addBook() {
         cursor: pointer;
     }
 
-    .authors .drop, .categories .drop{
+    .authors .drop, .categories .drop, .publishers .drop{
         width: 100%;
         display: flex;
         align-items: center;
         justify-content: space-between;
     }
 
-    .authors .drop img, .categories .drop img {
+    .authors .drop img, .categories .drop img, .publishers .drop img {
         width: 10px;
         height: 10px;
     }
 
-    .authors span, .categories span {
+    .authors span, .categories span, .publishers span {
         position: absolute;
         top: 32px;
         left: 0;
@@ -182,7 +211,7 @@ function addBook() {
         gap: 5px;
     }
 
-    .authors span p:hover, .categories span p:hover{
+    .authors span p:hover, .categories span p:hover, .publishers span p:hover{
         color: #888;
     }
 

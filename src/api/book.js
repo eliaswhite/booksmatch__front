@@ -25,6 +25,14 @@ class BookService {
         const { data } = await axios.get('/autores/');
         return data;
     }
+    async getPublishers() {
+        const { data } = await axios.get('/editoras/')
+        return data;
+    }
+    async addImage(formData) {
+        const { data } = await axios.post('/api/media/images/', formData)
+        return data;
+    }
 }
 
 export default new BookService();

@@ -9,6 +9,7 @@ onMounted(async ()=> {
   await bookStore.getBooks();
   await bookStore.getCategories();
   await bookStore.getAuthors();
+  await bookStore.getPublishers();
 })
 </script>
 
